@@ -1,0 +1,29 @@
+select {
+    -webkit-appearance: none;
+    appearance: none;
+    &:disabled{
+        background-color: var(--color-gray-lighest);
+        color: var(--color-gray-light);
+        +i{
+            color: var(--color-gray-light);
+        }
+    }
+    &:focus {
+        +i{
+            color: var(--color-primary);
+        }
+    }
+}
+.formfield-select{
+    position: relative;
+    width: fit-content;
+}
+i{
+    pointer-events: none;
+    user-select: none;
+    cursor: pointer;
+    color: var(--color-gray);
+    right: 5%;
+    top: 20%;
+    position: absolute;
+}

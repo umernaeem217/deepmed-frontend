@@ -1,0 +1,68 @@
+.form-textfield {
+  display: flex;
+  flex-direction: column;
+  label {
+    order: -1;
+    color: var(--color-gray);
+  }
+  input, select {
+    background-color: var(--color-extra-light);
+    border: 1px solid var(--color-gray-lighest);
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 0 22px;
+    min-height: 42px;
+    min-width: 255px;
+    font-size: 14px;
+    font-weight: 400;
+    ::placeholder {
+      color: var(--color-gray-dark);
+    }
+    :-ms-input-placeholder {
+      color: var(--color-gray-dark);
+    }
+    ::-ms-input-placeholder {
+      color: var(--color-gray-dark);
+    }
+    &:focus {
+      outline: none;
+      border: 1px solid var(--color-primary);
+      &::placeholder {
+        color: var(--color-dark);
+      }
+      &:-ms-input-placeholder {
+        color: var(--color-dark);
+      }
+      & ::-ms-input-placeholder {
+        color: var(--color-dark);
+      }
+    }
+    &:disabled{
+        background-color: var(--color-gray-lighest);
+        &::placeholder {
+            color: var(--color-gray-light);
+          }
+          &:-ms-input-placeholder {
+            color: var(--color-gray-light);
+          }
+          & ::-ms-input-placeholder {
+            color: var(--color-gray-light);
+          }
+    }
+    &:valid {
+      color: var(--color-gray-dark);
+    }
+  }
+  .form-invalid {
+    &:invalid {
+      border: 1px solid var(--color-red);
+    }
+  }
+}
+
+.form-field:focus-within + label {
+  color: var(--color-primary);
+}
+.label-disabled{
+    color: var(--color-gray-light) !important;
+}

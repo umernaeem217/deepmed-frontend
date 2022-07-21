@@ -1,0 +1,6 @@
+<div class="form-textfield">
+  <div class="form-field">
+    <ng-content></ng-content>
+  </div>
+  <label *ngIf="config.label" [ngClass]="{'label-disabled': config.disabled?? false}" class="form-label font-bold-12 font-uppercase">{{config.label}} <span *ngIf="config.required ?? false">*</span></label>
+</div>

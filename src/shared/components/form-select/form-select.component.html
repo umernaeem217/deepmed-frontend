@@ -1,0 +1,7 @@
+<div [formGroup]="form" class="formfield-select">
+    <select [formControlName]="config.name" [required]="config.required ?? false" [disabled]="config.disabled ?? false">
+        <option>{{config.placeholder ?? "Select"}}</option>
+        <option *ngFor="let option of config.options" [value]="option.value">{{option.name}}</option>
+    </select>
+    <i class="material-icons">expand_more</i>
+</div>

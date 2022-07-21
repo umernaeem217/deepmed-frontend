@@ -1,0 +1,6 @@
+<button [ngClass]="{'font-semibold-14': size=='large','font-semibold-12': size=='medium','font-semibold-10': size=='small','button-small': size=='small','button-medium':size=='medium','button-large':size=='large','button-icon':icon,'button-dark':type=='dark', 'button-outline': type=='outline','button-text': type=='text', 'button-light': type=='light'}">
+    <span>
+        {{text}}
+    <i *ngIf="icon" class="material-icons">{{icon}}</i>
+    </span>
+</button>

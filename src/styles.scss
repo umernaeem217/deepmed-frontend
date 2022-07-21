@@ -1,0 +1,71 @@
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+/* You can add global styles to this file, and also import other style files */
+:root{
+    --color-primary: #3751FF;
+    --color-primary-dark: #253DD9;
+    --color-light: #DDE2FF;
+    --color-extra-light:  #FCFDFE;
+    --color-dark: #252733;
+    --color-gray-dark: #4B506D;
+    --color-gray:  #9FA2B4;
+    --color-gray-light: #C5C7CD;
+    --color-gray-lighest: #F0F1F7;
+    --color-bg: #F7F8FC;
+    --color-divider: #DFE0EB;
+    --color-divider-graph: #EBEDF0;
+    --color-white:  #FFFFFF;
+    --color-dark-bg: #363740;
+    --color-green: #29CC97;
+    --color-green-light: #D4F5EA;
+    --color-yellow: #FEC400;
+    --color-yellow-light: #FFEDB2;
+    --color-red: #F12B2C;
+    --color-disabled: #E7EAFF;
+    --color-sidebar-gray:#A4A6B3;
+    --color-sidebar-active: #3F4049;
+}
+html, body{
+    height: 100%;
+}
+*{
+    font-family: 'Mulish', sans-serif;
+    font-style: normal;
+}
+
+/*#region GLOBAL VARIABLES*/
+$font-sizes:(
+  10: 10px,
+  11: 11px,
+  12: 12px,
+  14: 14px,
+  16: 16px,
+  19: 19px,
+  24: 24px,
+  40: 40px,
+);
+$font-regular-weight: 400;
+$font-semibold-weight: 600;
+$font-bold-weight: 700;
+/*#endregion GLOBAL VARIABLES*/
+
+/*#region TYPOGRAPHY*/
+@each $key,$val in $font-sizes{
+    .font-regular-#{$key} {
+        font-weight: $font-regular-weight;
+        font-size: #{$val};
+    }
+    .font-semibold-#{$key} {
+        font-weight: $font-semibold-weight;
+        font-size: #{$val};
+    }
+    .font-bold-#{$key} {
+        font-weight: $font-bold-weight;        
+        font-size: #{$val};
+    }
+}
+
+.font-uppercase{
+    text-transform: uppercase;
+}
+/*#endregion TYPOGRAPHY*/
