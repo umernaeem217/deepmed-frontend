@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormConfig } from 'src/shared/models/formconfig.model';
+import { FormConfig } from 'src/app/modules/shared/models/formconfig.model';
 
 @Component({
   selector: 'lib-form-password',
