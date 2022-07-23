@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/modules/shared/services/alert.service';
 import { FormControlOption } from '../../../shared/models/form-control-options.model';
 import { FormService } from '../../../shared/services/form.service';
 import { ConfirmPasswordValidator } from '../../../shared/utilities/validators/confirm-password.validator';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,7 +21,7 @@ export class SignUpComponent implements OnInit {
   public heading: string = 'Sign Up on Deep Med';
   public subHeading: string = 'Enter your information below.';
 
-  constructor(private formService: FormService, private router: Router) {
+  constructor(private formService: FormService,private alertService: AlertService, private router: Router, private service: AuthenticationService) {
     this.formControls =[{
       name: 'name',
       label: 'Name',
@@ -74,8 +76,14 @@ export class SignUpComponent implements OnInit {
     this.formService.addValidator(this.formName, ConfirmPasswordValidator.MatchValidator("password", "confirmPassword"));
   }
 
-  submitForm(): void {
+  async submitForm(): Promise<void> {
     if(this.form?.valid){
+      const res = await this.service.signup({...this.form.value});
+      if(res.statusCode==200){
+        
+      }else{
+        this.alertService.error(res.message);
+      }
       this.router.navigate(['/verify']);
     }else{
       this.formService.validateAllFormFields(this.formName);

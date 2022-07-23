@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ButtonComponent } from './components/button/button.component';
 import { TextfieldComponent } from './components/textfield/textfield.component';
@@ -8,6 +9,7 @@ import { FormPlainComponent } from './components/form-plain/form-plain.component
 import { FormSelectComponent } from './components/form-select/form-select.component';
 import { FormComponent } from './components/form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -22,7 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports:[
     ButtonComponent,

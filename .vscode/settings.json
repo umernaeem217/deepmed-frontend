@@ -1,3 +1,7 @@
 {
-    "editor.fontFamily": "Cascadia Mono, Consolas, 'Courier New', monospace"
+    "editor.fontFamily": "Cascadia Mono, Consolas, 'Courier New', monospace",
+    "files.exclude": {
+        "**/.angular": true,
+        "**/node_modules": true
+    }
 }

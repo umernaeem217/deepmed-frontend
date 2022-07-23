@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/modules/shared/services/alert.service';
 import { FormControlOption } from '../../../shared/models/form-control-options.model';
 import { FormService } from '../../../shared/services/form.service';
 
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   public heading: string = 'Log In to Deep Med';
   public subHeading: string = 'Enter your email and password below.';
 
-  constructor(private formService: FormService, private router: Router) {
+  constructor(private formService: FormService, private router: Router, private alertService: AlertService) {
     this.formControls =[{
       name: 'identity',
       label: 'Identity',
@@ -56,11 +57,18 @@ export class LoginComponent implements OnInit {
 
   submitForm(): void {
     if(this.form?.valid){
-      if(this.form.value.identity=="verify"){
-        this.router.navigate(['/verify']);
-      }else{
-        this.router.navigate(['/application']);
-      }
+      this.alertService.open({
+        title: "Success",
+        icon:"success",
+        text: "You have successfully logged in.",
+        heightAuto: false,
+        showConfirmButton: false
+      })
+      // if(this.form.value.identity=="verify"){
+      //   this.router.navigate(['/verify']);
+      // }else{
+      //   this.router.navigate(['/application']);
+      // }
 
     }else{
       this.formService.validateAllFormFields(this.formName);

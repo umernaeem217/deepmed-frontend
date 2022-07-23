@@ -2,8 +2,21 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+export const baseUrl: string = "https://localhost:7051/api/";
 export const environment = {
-  production: false
+  production: false,
+  
+  urls:{
+    authentication:{
+      signup: baseUrl+"Authentication/Signup",
+      login: baseUrl+"Authentication/Login",
+      verifyEmail: baseUrl+"Authentication/VerifyEmail",
+      requestEmailVerification: baseUrl+"Authentication/RequestEmailVerification",
+      requestResetPassword: baseUrl+"Authentication/RequestResetPassword",
+      resetPassword: baseUrl+"Authentication/ResetPassword",
+      checkResetPasswordCode: baseUrl+"Authentication/CheckResetPasswordCode",
+    }
+  }
 };
 
 /*
