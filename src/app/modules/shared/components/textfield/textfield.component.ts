@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormConfig } from 'src/app/modules/shared/models/formconfig.model';
+import { FormGroup } from '@angular/forms';
+import { FormControlOption } from 'src/app/modules/shared/models/form-control-options.model';
 
 @Component({
   selector: 'lib-textfield',
@@ -9,7 +10,9 @@ import { FormConfig } from 'src/app/modules/shared/models/formconfig.model';
 })
 export class TextfieldComponent implements OnInit {
 
-  @Input() config!: FormConfig;
+  @Input() config!: FormControlOption;
+  @Input() form!: FormGroup;
+
   constructor() { }
 
   ngOnInit(): void {

@@ -1,5 +1,5 @@
 <form  [formGroup]="form" class="row">
-    <lib-textfield [ngSwitch]="control.type" [config]="control" [class]="control.width? control.width: 'col-md-12'" *ngFor="let control of formControls">
+    <lib-textfield [ngSwitch]="control.type" [form]="form" [config]="control" [ngClass]="'form-field'" [class]="control.width? control.width: 'col-md-12'" *ngFor="let control of renderedControls">
         <lib-form-password *ngSwitchCase="'password'" [form]="form"  [config]="control"></lib-form-password>
         <lib-form-select *ngSwitchCase="'select'" [form]="form" [config]="control"></lib-form-select>
         <lib-form-plain *ngSwitchDefault [form]="form" [config]="control"></lib-form-plain>

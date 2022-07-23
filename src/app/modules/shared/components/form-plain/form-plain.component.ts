@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormConfig } from 'src/app/modules/shared/models/formconfig.model';
+import { FormControlOption } from 'src/app/modules/shared/models/form-control-options.model';
 
 @Component({
   selector: 'lib-form-plain',
@@ -10,7 +10,7 @@ import { FormConfig } from 'src/app/modules/shared/models/formconfig.model';
 export class FormPlainComponent implements OnInit {
   
   @Input() form!: FormGroup;
-  @Input() config!: FormConfig;
+  @Input() config!: FormControlOption;
   constructor() { }
 
   ngOnInit(): void {

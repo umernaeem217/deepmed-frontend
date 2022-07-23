@@ -1,6 +1,9 @@
 <div class="form-textfield">
-  <div class="form-field">
+  <div class="form-field" [ngClass]="{'form-invalid':(form.get(config.name)?.invalid && form.get(config.name)?.touched || config.applyGlobalValidators && form.getError('mismatch') && form.get(config.name)?.touched)}">
     <ng-content></ng-content>
   </div>
-  <label *ngIf="config.label" [ngClass]="{'label-disabled': config.disabled?? false}" class="form-label font-bold-12 font-uppercase">{{config.label}} <span *ngIf="config.required ?? false">*</span></label>
+  <label *ngIf="config.label" [ngClass]="{'label-disabled': config.disabled?? false, 'label-error': (form.get(config.name)?.invalid && form.get(config.name)?.touched || config.applyGlobalValidators && form.getError('mismatch') && form.get(config.name)?.touched)}" class="form-label font-bold-12 font-uppercase">{{config.label}} <span *ngIf="config.required ?? false">*</span></label>
+  <div class="form-error font-regular-12" *ngIf="form.get(config.name)?.invalid && form.get(config.name)?.touched">{{config.errorMessage}}</div>
+  <div class="form-error font-regular-12" *ngIf="config.applyGlobalValidators && form.getError('mismatch') && form.get(config.name)?.touched">Password does not match.</div>
+  <div class="form-additional-info font-regular-12" *ngIf="config.additionalInfo" (click)="config.additionalClickEvent()">{{config.additionalInfo}}</div>
 </div>

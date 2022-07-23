@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'lib-button',
@@ -11,9 +11,15 @@ export class ButtonComponent implements OnInit {
   @Input() type: "dark" | "light" | "outline" | "text" = "light";
   @Input() icon: string = "";
   @Input() size: "large" | "medium" | "small" = "large";
+
+  @Output() clicked: EventEmitter<void> = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onClicked(): void {
+    this.clicked.emit();
   }
 
 }

@@ -1,0 +1,16 @@
+<app-auth-wrapper
+ [heading]="heading"
+ [footer]="footer"
+ [actionBody]="actionTemplate"
+ [formName]="formName"
+ [subHeading]="subHeading"
+ (formReady)="renderFields($event)">
+</app-auth-wrapper>
+
+<ng-template #footer>
+    <div>Already have an account? <a routerLink='/login'>Login</a></div>
+</ng-template>
+
+<ng-template #actionTemplate>
+    <lib-button (clicked)="submitForm()" [text]="'Sign Up'" [type]="'dark'"></lib-button>
+</ng-template>

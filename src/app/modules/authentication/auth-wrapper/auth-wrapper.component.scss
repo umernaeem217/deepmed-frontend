@@ -1,0 +1,37 @@
+.auth-wrapper-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .auth-wrapper-intro{
+        margin-top: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .auth-wrapper-description{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .auth-wrapper-heading{
+            margin-top: 25px;
+            text-align: center;
+        }
+        .auth-wrapper-text{
+            margin-top: 5px;
+            margin-bottom: 25px;
+            color: var(--color-gray);
+        }
+    }
+    .auth-wrapper-form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .auth-wrapper-footer{
+        margin: 25px 0;
+    }
+}

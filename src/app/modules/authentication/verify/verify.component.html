@@ -1,0 +1,14 @@
+<app-auth-wrapper
+ [heading]="heading"
+ [actionBody]="actionTemplate"
+ [formName]="formName"
+ [subHeading]="subHeading"
+ (formReady)="renderFields($event)">
+</app-auth-wrapper>
+
+<ng-template #actionTemplate>
+    <lib-button (clicked)="submitForm()" [text]="'Verify'" [type]="'dark'"></lib-button>
+        <br>
+        <lib-button *ngIf="showResend" (clicked)="resendEmail()" [icon]="'replay'" [text]="'Resend'" [type]="'light'"></lib-button>
+        <br  *ngIf="showResend">
+</ng-template>

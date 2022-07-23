@@ -1,0 +1,23 @@
+<div class="auth-wrapper-container">
+    <div *ngIf="header" class="auth-wrapper-intro">
+        <ng-container *ngTemplateOutlet="header"></ng-container>
+    </div>
+    <div class="auth-wrapper-description">
+        <div class="auth-wrapper-heading font-bold-24">
+            {{heading}}
+        </div>
+        <div class="auth-wrapper-text font-semibold-14">
+            {{subHeading}}
+        </div>
+    </div>
+    <div class="auth-wrapper-form">
+        <lib-form [name]="formName" (formReady)="onFormReady($event)"></lib-form>
+        <br>
+        <ng-container *ngIf="actionBody">
+            <ng-container *ngTemplateOutlet="actionBody"></ng-container>
+        </ng-container>
+    </div>
+    <div *ngIf="footer" class="auth-wrapper-footer">
+        <ng-container *ngTemplateOutlet="footer"></ng-container>
+    </div>
+</div>

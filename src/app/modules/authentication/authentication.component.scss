@@ -1,0 +1,14 @@
+.auth-container{
+    background-color: var(--color-dark-bg);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .auth-outlet{
+        background-color: var(--color-white);
+        max-width: 350px;
+        padding: 10px;
+        width: 100%;
+        border-radius: 8px;
+    }
+}

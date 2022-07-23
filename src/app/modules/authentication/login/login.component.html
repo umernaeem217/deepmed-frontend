@@ -1,0 +1,26 @@
+<app-auth-wrapper
+ [heading]="heading"
+ [header]="header"
+ [footer]="footer"
+ [actionBody]="actionTemplate"
+ [formName]="formName"
+ [subHeading]="subHeading"
+ (formReady)="renderFields($event)">
+</app-auth-wrapper>
+
+<ng-template #header>
+    <div class="verify-logo">
+        <img class="navigation-sidebar-logo" src="/assets/logo@1x.png" alt="Logo">
+    </div>
+    <div class="verify-title font-bold-16">
+        Deep Med
+    </div>
+</ng-template>
+
+<ng-template #actionTemplate>
+    <lib-button (clicked)="submitForm()" [text]="'Login'" [type]="'dark'"></lib-button>
+</ng-template>
+
+<ng-template #footer>
+    <div class="verify-footer">Don't have an account? <a routerLink='/signup'>Sign up</a></div>
+</ng-template>
