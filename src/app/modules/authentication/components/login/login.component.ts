@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormControlOption } from '../../shared/models/form-control-options.model';
-import { FormService } from '../../shared/services/form.service';
+import { FormControlOption } from '../../../shared/models/form-control-options.model';
+import { FormService } from '../../../shared/services/form.service';
 
 @Component({
   selector: 'app-login',
