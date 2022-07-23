@@ -6,6 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreModule } from 'src/app/modules/core/core.module';
+
+import { NgxSpinnerModule } from "ngx-spinner";
+
 import { AuthenticationModule } from './modules/authentication/authentication.module';
 
 @NgModule({
@@ -17,6 +20,8 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
     AppRoutingModule,
 
     AuthenticationModule,
+
+    NgxSpinnerModule,
     
     CoreModule,
     SharedModule,
