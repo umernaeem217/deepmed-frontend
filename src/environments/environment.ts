@@ -15,6 +15,9 @@ export const environment = {
       requestResetPassword: baseUrl+"Authentication/RequestResetPassword",
       resetPassword: baseUrl+"Authentication/ResetPassword",
       checkResetPasswordCode: baseUrl+"Authentication/CheckResetPasswordCode",
+    },
+    icdScheme:{
+      getAll: baseUrl+"IcdScheme",
     }
   }
 };

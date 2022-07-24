@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormControlOption } from 'src/app/modules/shared/models/form-control-options.model';
 
 @Component({
@@ -11,7 +11,7 @@ import { FormControlOption } from 'src/app/modules/shared/models/form-control-op
 export class TextfieldComponent implements OnInit {
 
   @Input() config!: FormControlOption;
-  @Input() form!: FormGroup;
+  @Input() form!: UntypedFormGroup;
 
   constructor() { }
 

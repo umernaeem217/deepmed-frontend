@@ -13,6 +13,15 @@ export class AlertService{
         return Swal.fire(options)
     }
 
+    success(message: string){
+        return this.open({
+            title: 'Success',
+            icon: "success",
+            text: message,
+            heightAuto: false,
+        });
+    }
+
     error(message: string){
         return this.open({
             title: 'An error has occured.',

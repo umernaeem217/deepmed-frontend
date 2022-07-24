@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'src/app/modules/shared/services/alert.service';
 import { FormControlOption } from '../../../shared/models/form-control-options.model';
 import { FormService } from '../../../shared/services/form.service';
@@ -15,7 +16,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 export class SignUpComponent implements OnInit {
 
   private formControls: FormControlOption[];
-  private form?: FormGroup;
+  private form?: UntypedFormGroup;
 
   public formName: string = 'signup';
   public heading: string = 'Sign Up on Deep Med';
@@ -23,7 +24,7 @@ export class SignUpComponent implements OnInit {
 
   constructor(private formService: FormService,private alertService: AlertService, private router: Router, private service: AuthenticationService) {
     this.formControls =[{
-      name: 'name',
+      name: 'fullName',
       label: 'Name',
       type: 'text',
       placeholder: 'Name',
@@ -50,7 +51,7 @@ export class SignUpComponent implements OnInit {
       required: true,
       defaultValue: '',
       errorMessage:'Please enter a valid password.',
-      validatorOrOpts: [Validators.required]
+      validatorOrOpts: [Validators.required, Validators.minLength(6)]
     },
     {
       name: 'confirmPassword',
@@ -61,16 +62,15 @@ export class SignUpComponent implements OnInit {
       defaultValue: '',
       errorMessage:'',
       applyGlobalValidators: true,
-      validatorOrOpts: [Validators.required]
+      validatorOrOpts: [Validators.required, Validators.minLength(6)]
     }
   ]
   }
 
   ngOnInit(): void {
-    
   }
 
-  renderFields(form: FormGroup): void {
+  renderFields(form: UntypedFormGroup): void {
     this.form = form;
     this.formService.updateForm(this.formName, this.formControls);
     this.formService.addValidator(this.formName, ConfirmPasswordValidator.MatchValidator("password", "confirmPassword"));
@@ -80,11 +80,12 @@ export class SignUpComponent implements OnInit {
     if(this.form?.valid){
       const res = await this.service.signup({...this.form.value});
       if(res.statusCode==200){
-        
+        this.alertService.success("Successfully signed up. Please check your email for verification.");
+        this.router.navigateByUrl('/verify', { state: { userId: res.data } });
       }else{
         this.alertService.error(res.message);
       }
-      this.router.navigate(['/verify']);
+      // 
     }else{
       this.formService.validateAllFormFields(this.formName);
     }

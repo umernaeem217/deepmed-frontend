@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/modules/shared/services/alert.service';
 import { FormControlOption } from '../../../shared/models/form-control-options.model';
 import { FormService } from '../../../shared/services/form.service';
 import { ConfirmPasswordValidator } from '../../../shared/utilities/validators/confirm-password.validator';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -12,8 +14,10 @@ import { ConfirmPasswordValidator } from '../../../shared/utilities/validators/c
 })
 export class ForgotPassowordComponent implements OnInit {
   private formControls: FormControlOption[];
-  private form?: FormGroup;
+  private form?: UntypedFormGroup;
   private resendSetTimeout?: NodeJS.Timeout;
+  private code?: string;
+  private identity?: string;
 
   public formName: string = 'verify';
   public showResend: boolean = false;
@@ -22,7 +26,7 @@ export class ForgotPassowordComponent implements OnInit {
   public heading: string = 'Forgot your password?';
   public subHeading: string = 'Please enter your email or username.';
 
-  constructor(private formService: FormService, private router: Router) {
+  constructor(private formService: FormService, private router: Router,private alertService: AlertService, private service: AuthenticationService) {
     this.formControls = [
       {
         name: 'identity',
@@ -41,7 +45,7 @@ export class ForgotPassowordComponent implements OnInit {
 
   addVerificationField(): void {
     this.formControls.push({
-      name: 'verification',
+      name: 'code',
       label: 'Verification Code',
       type: 'text',
       placeholder: 'Verification Code',
@@ -53,45 +57,72 @@ export class ForgotPassowordComponent implements OnInit {
     this.formService.updateForm(this.formName, this.formControls);
   }
 
-  renderFields(form: FormGroup): void {
+  renderFields(form: UntypedFormGroup): void {
     this.form = form;
     this.formService.updateForm(this.formName, this.formControls);
   }
 
-  sendEmail(): void {
+  async sendEmail(): Promise<void> {
     if (this.form?.valid) {
-      this.codeSent = true;
+      this.codeSent = true;      
+      this.identity = this.form.value?.identity;
       this.form?.get('identity')?.disable();
       this.addVerificationField();
       this.resendSetTimeout = setTimeout(() => {
         this.showResend = true;
         this.form?.get('identity')?.enable();
       }, 5000);
+      if(this.identity){
+        const response = await this.service.requestPasswordReset(this.identity);
+      if(response.statusCode==200){
+        this.alertService.success(response.message);
+      }else{
+        this.alertService.error(response.message);
+      }
+      }
+
     } else {
       this.formService.validateAllFormFields(this.formName);
     }
   }
 
-  resendEmail(): void {
+  async resendEmail(): Promise<void> {
+    this.identity = this.form?.value?.identity;
     this.form?.get('identity')?.disable();
     this.showResend = false;
     this.resendSetTimeout = setTimeout(() => {
       this.showResend = true;
       this.form?.get('identity')?.enable();
     }, 5000);
+    if(this.identity){
+      const response = await this.service.requestPasswordReset(this.identity);
+      if(response.statusCode==200){
+        this.alertService.success(response.message);
+      }else{
+        this.alertService.error(response.message);
+      }
+    }
   }
 
-  resetPassword(): void {
+  async resetPassword(): Promise<void> {
     if (this.form?.valid) {
-      this.router.navigate(['/login']);
+      const response = await this.service.resetPassword({...this.form.value, code: this.code, identity: this.identity});
+      if(response.statusCode==200){
+        this.alertService.success(response.message);
+        this.router.navigate(['/login']);
+      }else{
+        this.alertService.error(response.message);
+      }
     } else {
       this.formService.validateAllFormFields(this.formName);
     }
   }
 
-  verifyCode(): void {
+  async verifyCode(): Promise<void> {
     if (this.form?.valid) {
-      if (this.form.get('verification')?.value === '123456') {
+      const response = await this.service.checkResetPasswordCode({...this.form.value});
+      if(response.statusCode==200){
+        this.alertService.success(response.message);
         if(this.resendSetTimeout){
           clearTimeout(this.resendSetTimeout);
         }
@@ -99,6 +130,7 @@ export class ForgotPassowordComponent implements OnInit {
         this.codeVerified = true;
         this.heading = 'Reset your password';
         this.subHeading = 'Please enter your new password.';
+        this.code = this.form.value?.code;
         this.formControls = [
           {
             name: 'password',
@@ -122,9 +154,11 @@ export class ForgotPassowordComponent implements OnInit {
             validatorOrOpts: [Validators.required],
           },
         ];
-      }
-      this.formService.updateForm(this.formName, this.formControls);
+        this.formService.updateForm(this.formName, this.formControls);
       this.formService.addValidator(this.formName, ConfirmPasswordValidator.MatchValidator("password", "confirmPassword"));
+      }else{
+        this.alertService.error(response.message);
+      }
     } else {
       this.formService.validateAllFormFields(this.formName);
     }

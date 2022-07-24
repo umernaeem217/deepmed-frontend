@@ -9,6 +9,7 @@ import { SignUpDto } from "../models/sign-up.model";
 import { VerifyCodeDto } from "../models/verify-code.model";
 import { ResetPasswordDto } from "../models/reset-password.model";
 import { CheckResetPasswordCodeDto } from "../models/check-reset-password-code.model";
+import { Response } from "../../shared/models/response.model";
 
 @Injectable({
     providedIn: 'root',
@@ -20,31 +21,31 @@ export class AuthenticationService extends GenericService{
         super(http);
     }
 
-    login(params: LoginDto){
+    login(params: LoginDto): Promise<Response<LoginResponseDto>>{
         return firstValueFrom(this.post<LoginResponseDto>(this.BASE_URL.login,params));
     }
 
-    signup(params: SignUpDto){
+    signup(params: SignUpDto): Promise<Response<string>>{
         return firstValueFrom(this.post<string>(this.BASE_URL.signup,params));
     }
 
-    verifyEmail(params: VerifyCodeDto){
+    verifyEmail(params: VerifyCodeDto): Promise<Response<boolean>>{
         return firstValueFrom(this.post<boolean>(this.BASE_URL.verifyEmail,params));
     }
 
-    requestEmailVerification(userId: string){
+    requestEmailVerification(userId: string): Promise<Response<string>>{
         return firstValueFrom(this.get<string>(this.BASE_URL.requestEmailVerification+"/"+userId));
     }
 
-    requestPasswordReset(identity: string){
+    requestPasswordReset(identity: string): Promise<Response<string>>{
         return firstValueFrom(this.get<string>(this.BASE_URL.requestResetPassword+"/"+identity));
     }
 
-    resetPassword(params: ResetPasswordDto){
+    resetPassword(params: ResetPasswordDto): Promise<Response<string>>{
         return firstValueFrom(this.put<string>(this.BASE_URL.resetPassword,params));
     }
 
-    checkResetPasswordCode(params: CheckResetPasswordCodeDto){
+    checkResetPasswordCode(params: CheckResetPasswordCodeDto): Promise<Response<boolean>>{
         return firstValueFrom(this.post<boolean>(this.BASE_URL.checkResetPasswordCode,params));
     }
 }

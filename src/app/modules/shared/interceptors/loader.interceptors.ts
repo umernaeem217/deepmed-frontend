@@ -1,21 +1,25 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { NgxSpinnerService } from "ngx-spinner";
-import { catchError, map, Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor,
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import {  NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
 
-    constructor(private spinner: NgxSpinnerService) {}
+  constructor(private loaderService: NgxSpinnerService) {
+  }
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        this.spinner.show();
-        return next.handle(request).pipe(catchError((error)=>{
-            this.spinner.hide();
-            return error;
-        })).pipe((event: any)=>{
-            this.spinner.hide();
-            return event;
-        })
-    }
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+     this.loaderService.show();
+
+     return next.handle(request).pipe(
+           finalize(() => this.loaderService.hide()),
+     );
+  }
 }

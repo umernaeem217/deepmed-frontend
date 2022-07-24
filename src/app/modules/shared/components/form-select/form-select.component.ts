@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormControlOption } from 'src/app/modules/shared/models/form-control-options.model';
 
 @Component({
@@ -9,7 +9,7 @@ import { FormControlOption } from 'src/app/modules/shared/models/form-control-op
 })
 export class FormSelectComponent implements OnInit {
   
-  @Input() form!: FormGroup;
+  @Input() form!: UntypedFormGroup;
   @Input() config!: FormControlOption;
   constructor() { }
 

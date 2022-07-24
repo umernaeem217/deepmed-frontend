@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-auth-wrapper',
@@ -15,7 +15,7 @@ export class AuthWrapperComponent implements OnInit {
   @Input() header: TemplateRef<any> | null = null;
   @Input() actionBody: TemplateRef<any> | null = null;
 
-  @Output() formReady: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  @Output() formReady: EventEmitter<UntypedFormGroup> = new EventEmitter<UntypedFormGroup>();
 
   constructor() {}
 
@@ -23,7 +23,7 @@ export class AuthWrapperComponent implements OnInit {
     
   }
 
-  onFormReady(form: FormGroup): void {
+  onFormReady(form: UntypedFormGroup): void {
     this.formReady.emit(form); 
   }
 

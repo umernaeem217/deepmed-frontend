@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { FormControlOption } from 'src/app/modules/shared/models/form-control-options.model';
 import { FormService } from '../../services/form.service';
 import { ConfirmPasswordValidator } from '../../utilities/validators/confirm-password.validator';
@@ -13,13 +13,13 @@ export class FormComponent implements OnInit {
 
   private controls: FormControlOption[] = []; 
   
-  public form!: FormGroup;
+  public form!: UntypedFormGroup;
   public renderedControls: FormControlOption[] = [];
 
   @Input() name!: string;
-  @Output() formReady: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  @Output() formReady: EventEmitter<UntypedFormGroup> = new EventEmitter<UntypedFormGroup>();
 
-  constructor(private service: FormService, private fb: FormBuilder) {
+  constructor(private service: FormService, private fb: UntypedFormBuilder) {
     this.form = this.fb.group({});
     this.service.getControlsChangedObservable().subscribe((data: {name: string, controls: FormControlOption[]})=>{
       if(data.name === this.name){
@@ -49,7 +49,7 @@ export class FormComponent implements OnInit {
       this.form.removeControl(control.name);
     })
     this.controls.forEach((control: FormControlOption)=>{
-      this.form.addControl(control.name,  new FormControl(control.defaultValue,control.validatorOrOpts,control.asyncValidator));
+      this.form.addControl(control.name,  new UntypedFormControl(control.defaultValue,control.validatorOrOpts,control.asyncValidator));
     });
     this.renderedControls = [...this.controls];
   }
@@ -59,12 +59,12 @@ export class FormComponent implements OnInit {
    * Validated all form fields in a form group.
    * Code copied from https://loiane.com/2017/08/angular-reactive-forms-trigger-validation-on-submit/
    */
-  validateAllFormFields(formGroup: FormGroup) {         
+  validateAllFormFields(formGroup: UntypedFormGroup) {         
     Object.keys(formGroup.controls).forEach(field => {  
       const control = formGroup.get(field);             
-      if (control instanceof FormControl) {             
+      if (control instanceof UntypedFormControl) {             
         control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {        
+      } else if (control instanceof UntypedFormGroup) {        
         this.validateAllFormFields(control);            
       }
     });
