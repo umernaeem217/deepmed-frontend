@@ -65,20 +65,17 @@ export class ForgotPassowordComponent implements OnInit {
   async sendEmail(): Promise<void> {
     if (this.form?.valid) {
       this.codeSent = true;      
-      this.identity = this.form.value?.identity;
       this.form?.get('identity')?.disable();
       this.addVerificationField();
       this.resendSetTimeout = setTimeout(() => {
         this.showResend = true;
         this.form?.get('identity')?.enable();
       }, 5000);
-      if(this.identity){
-        const response = await this.service.requestPasswordReset(this.identity);
+      const response = await this.service.requestPasswordReset(this.form.getRawValue()?.identity);
       if(response.statusCode==200){
         this.alertService.success(response.message);
       }else{
         this.alertService.error(response.message);
-      }
       }
 
     } else {
@@ -87,26 +84,23 @@ export class ForgotPassowordComponent implements OnInit {
   }
 
   async resendEmail(): Promise<void> {
-    this.identity = this.form?.value?.identity;
     this.form?.get('identity')?.disable();
     this.showResend = false;
     this.resendSetTimeout = setTimeout(() => {
       this.showResend = true;
       this.form?.get('identity')?.enable();
     }, 5000);
-    if(this.identity){
-      const response = await this.service.requestPasswordReset(this.identity);
+    const response = await this.service.requestPasswordReset(this.form?.getRawValue()?.identity);
       if(response.statusCode==200){
         this.alertService.success(response.message);
       }else{
         this.alertService.error(response.message);
       }
-    }
   }
 
   async resetPassword(): Promise<void> {
     if (this.form?.valid) {
-      const response = await this.service.resetPassword({...this.form.value, code: this.code, identity: this.identity});
+      const response = await this.service.resetPassword({...this.form.getRawValue(), code: this.code, identity: this.identity});
       if(response.statusCode==200){
         this.alertService.success(response.message);
         this.router.navigate(['/login']);
@@ -120,7 +114,7 @@ export class ForgotPassowordComponent implements OnInit {
 
   async verifyCode(): Promise<void> {
     if (this.form?.valid) {
-      const response = await this.service.checkResetPasswordCode({...this.form.value});
+      const response = await this.service.checkResetPasswordCode({...this.form.getRawValue()});
       if(response.statusCode==200){
         this.alertService.success(response.message);
         if(this.resendSetTimeout){
@@ -131,6 +125,7 @@ export class ForgotPassowordComponent implements OnInit {
         this.heading = 'Reset your password';
         this.subHeading = 'Please enter your new password.';
         this.code = this.form.value?.code;
+        this.identity = this.form?.getRawValue()?.identity;
         this.formControls = [
           {
             name: 'password',

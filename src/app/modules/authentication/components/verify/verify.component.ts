@@ -94,7 +94,7 @@ export class VerifyComponent implements OnInit {
         clearTimeout(this.resendTimeout);
         }
         this.alertService.success(response.message);
-        this.router.navigate(['/application']);
+        this.router.navigate(['/app']);
       }else{
         this.alertService.error(response.message);
       }

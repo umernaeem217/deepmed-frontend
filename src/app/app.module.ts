@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from 'src/app/modules/core/core.module';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
 import { LoaderInterceptor } from './modules/shared/interceptors/loader.interceptors';
+import { MainApplicationModule } from './modules/main-application/main-application.module';
 
 @NgModule({
   declarations: [
@@ -22,13 +23,13 @@ import { LoaderInterceptor } from './modules/shared/interceptors/loader.intercep
     AppRoutingModule,
     BrowserAnimationsModule,
 
-    AuthenticationModule,
+    NgxSpinnerModule,  
+    NgbModule,
 
-    NgxSpinnerModule,
-    
+    AuthenticationModule,
+    MainApplicationModule,
     CoreModule,
     SharedModule,
-    NgbModule,
   ],
   exports:[
     NgxSpinnerModule

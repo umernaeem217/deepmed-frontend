@@ -61,19 +61,14 @@ export class LoginComponent implements OnInit {
       const response = await this.service.login({...this.form.value});
       if(response.statusCode==200){
         if(response.data?.isVerified){
-          this.router.navigate(['/application']);
+          this.alertService.success('Login successful.');
+          this.router.navigate(['/app']);
         }else{
           this.router.navigateByUrl('/verify', {state: {userId: response.data?.userId}});
         }
       }else{
         this.alertService.error(response.message);
       }
-      // if(this.form.value.identity=="verify"){
-      //   this.router.navigate(['/verify']);
-      // }else{
-      //   
-      // }
-
     }else{
       this.formService.validateAllFormFields(this.formName);
     }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ContainerComponent } from './components/container/container.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ContainerHeadingComponent } from './components/container-heading/container-heading.component';
 
 
 
@@ -10,13 +11,15 @@ import { HeaderComponent } from './components/header/header.component';
   declarations: [
     SidebarComponent,
     ContainerComponent,
-    HeaderComponent
+    HeaderComponent,
+    ContainerHeadingComponent
   ],
   imports: [
     CommonModule
   ],
   exports:[
-    ContainerComponent
+    ContainerComponent,
+    ContainerHeadingComponent
   ]
 })
 export class CoreModule { }
